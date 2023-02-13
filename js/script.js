@@ -4,8 +4,6 @@
 
 'strict';
 
-// Пустые дела добавляться не должны
-// Удаление дел на кнопку КОРЗИНА
 // Сохранять данные о делах в localStorage (советую в виде массива)
 // Дела из localStorage подгружаться должны автоматически при загрузки странице
 
@@ -15,19 +13,19 @@
 
 //  Проверить, чтобы все работало и не было ошибок в консоли (Учесть вариант отсутствия объекта в localstorage пользователя при первой загрузке страницы)
 
-//  Сохранить проект в отдельном репозитории на GitHub
-
 const todoControl = document.querySelector('.todo-control');
 const headerInput = document.querySelector('.header-input');
 const todoList = document.querySelector('.todo-list');
 const todoCompleted = document.querySelector('.todo-completed');
+// const toDoRemove = document.querySelector('.todo-remove');
 
 const toDoData = [];
 
 const render = function () {
   todoList.innerHTML = '';
   todoCompleted.innerHTML = '';
-  toDoData.forEach(function (item) {
+
+  toDoData.forEach(function (item, index) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
     li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
@@ -46,12 +44,17 @@ const render = function () {
       item.completed = !item.completed;
       render();
     })
+
+    li.querySelector('.todo-remove').addEventListener('click', function () {
+      toDoData.splice(index, 1);
+      render();
+    })
   })
 }
 
 todoControl.addEventListener('submit', function (event) {
   event.preventDefault();
-
+  if (headerInput.value === '') return;
   const newToDo = {
     text: headerInput.value,
     completed: false
