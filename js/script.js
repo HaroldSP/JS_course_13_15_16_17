@@ -4,61 +4,37 @@
 
 'strict';
 
-const todoControl = document.querySelector('.todo-control');
-const headerInput = document.querySelector('.header-input');
-const todoList = document.querySelector('.todo-list');
-const todoCompleted = document.querySelector('.todo-completed');
+// 1) Создать функцию-конструктор DomElement, который
 
-let toDoData = [];
-if (localStorage.toDoData !== undefined) toDoData = JSON.parse(localStorage.getItem('toDoData', toDoData));
+//    содержит свойства
+//   - selector,
+//   - height,
+//   - width,
+//   - bg,
+//   - fontSize
 
-const render = function () {
-  todoList.innerHTML = '';
-  todoCompleted.innerHTML = '';
+// содержит метод, который создает элемент на странице в зависимости от условия:
 
-  toDoData.forEach(function (item, index) {
-    const li = document.createElement('li');
-    li.classList.add('todo-item');
-    li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
-    '<div class="todo-buttons">' +
-    '<button class="todo-remove"></button>' +
-    '<button class="todo-complete"></button>' +
-    '</div>'
+// - если строка selector начинается с точки, создаем div с классом
+// - если строка selector начинается с решетки # то создаем параграф с id
 
-    if (item.completed) {
-      todoCompleted.append(li);
-    } else {
-      todoList.append(li);
-    }
+// пример:
 
-    li.querySelector('.todo-complete').addEventListener('click', function () {
-      item.completed = !item.completed;
-      localStorage.clear();
-      render();
-    })
+// если передана строка '.block', то функция конструктор создает элемент с class="block"
+// если передана строка '#best', то функция конструктор создает элемент с id =best"
 
-    li.querySelector('.todo-remove').addEventListener('click', function () {
-      toDoData.splice(index, 1);
-      localStorage.clear();
-      render();
-    })
-  })
+// с помощью cssText задавать стили:
 
-  localStorage.setItem('toDoData', JSON.stringify(toDoData));
-}
+//   - высотой - height,
+//   - шириной - width,
+//   - background - bg
+//   - размер текста fontSize
 
-todoControl.addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (headerInput.value === '') return;
-  const newToDo = {
-    text: headerInput.value,
-    completed: false
-  }
+// Внутрь созданного блока записывать любой текст. Метод записи может быть любым.
 
-  toDoData.push(newToDo);
-  headerInput.value = '';
+// 2) Создать новый объект на основе класса DomElement
 
-  render();
-})
+// 3) Вызвать его метод чтобы создать элемент на странице
 
-render();
+// Проверить, чтобы все работало и не было ошибок в консоли
+// Сохранить проект в отдельном репозитории на GitHub;
