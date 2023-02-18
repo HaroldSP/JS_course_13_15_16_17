@@ -1,64 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="./js/script.js" defer></script> 
-	<title>Constructor test</title>
-</head>
-<body>
-	<form id="myForm">
-		<div class="form-container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/script.js" defer></script>
+    <title>Constructor test</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <div class="form-container">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
 
-			<label for="name">Имя:</label>
-			<input type="text" id="name" name="name" required><br><br>
+        <label for="surname">Фамилия:</label>
+        <input type="text" id="surname" name="surname" required /><br /><br />
 
-			<label for="surname">Фамилия:</label>
-			<input type="text" id="surname" name="surname" required><br><br>
+        <label for="gender">Пол:</label>
+        <input
+          type="radio"
+          name="gender"
+          value="male"
+          id="male"
+          required
+        /><label for="male">М</label>
+        <input
+          type="radio"
+          name="gender"
+          value="female"
+          id="female"
+          required
+        /><label for="female">Ж</label><br /><br />
 
-			<label for="gender">Пол:</label>
-			<input type="radio" name="gender" value="male" id="male" required><label for="male">М</label>
-			<input type="radio" name="gender" value="female" id="female" required><label for="female">Ж</label><br><br>
+        <label for="Age">Возраст:</label>
+        <input type="number" id="Age" name="Age" required /><br /><br />
 
-			<label for="Age">Возраст:</label>
-			<input type="number" id="Age" name="Age" required><br><br>
+        <select id="my-select" required>
+          <option value="" selected>Выберите профессию</option>
+          <option value="smith">Слеварь</option>
+          <option value="driver">Водитель</option></select
+        ><br /><br />
+      </div>
 
-			<select id="my-select" required>
-				<option value="" selected>Выберите профессию</option>
-				<option value="smith">Слеварь</option>
-				<option value="driver">Водитель</option>
-			</select><br><br>
+      <div class="extra-form-smith" style="display: none">
+        <label for="health">Наличие травм:</label>
+        <input type="radio" name="health" value="yes" id="traumas" /><label
+          for="yes"
+          >Да</label
+        >
+        <input type="radio" name="health" value="no" id="notraumas" /><label
+          for="no"
+          >Нет</label
+        ><br /><br />
 
-		</div>
+        <label for="instrument">Наличие собственного инструмента:</label>
+        <input
+          type="radio"
+          name="instrument"
+          value="yes"
+          id="hasinstrument"
+        /><label for="yes">Да</label>
+        <input
+          type="radio"
+          name="instrument"
+          value="no"
+          id="noinstrument"
+        /><label for="no">Нет</label><br /><br />
+      </div>
 
-		<div class="extra-form-smith" style="display:none">
+      <div class="extra-form-driver" style="display: none">
+        <label for="addict">Наличие зависимостей:</label>
+        <input type="radio" name="addict" value="yes" id="addicted" /><label
+          for="yes"
+          >Да</label
+        >
+        <input type="radio" name="addict" value="no" id="notaddicted" /><label
+          for="no"
+          >Нет</label
+        ><br /><br />
 
-			<label for="health">Наличие травм:</label>
-			<input type="radio" name="health" value="yes" id="traumas" ><label for="yes">Да</label>
-			<input type="radio" name="health" value="no" id="notraumas"><label for="no">Нет</label><br><br>
+        <label for="car">Наличие собственного авто:</label>
+        <input type="radio" name="car" value="yes" id="hascar" /><label
+          for="yes"
+          >Да</label
+        >
+        <input type="radio" name="car" value="no" id="nocar" /><label for="no"
+          >Нет</label
+        ><br /><br />
+      </div>
+      <button type="submit" id="submit">Сохранить</button>
+      <!-- <button type="submit" onclick="submitForm()" id="submit">Submit</button> -->
+    </form>
+    <br /><br />
+    <!-- <button onclick="clearSelect()">Clear select</button> -->
 
-			<label for="instrument">Наличие собственного инструмента:</label>
-			<input type="radio" name="instrument" value="yes" id="hasinstrument"><label for="yes">Да</label>
-			<input type="radio" name="instrument" value="no" id="noinstrument"><label for="no">Нет</label><br><br>
-
-		</div>
-
-			<div class="extra-form-driver" style="display:none">
-
-			<label for="addict">Наличие зависимостей:</label>
-			<input type="radio" name="addict" value="yes" id="addicted"><label for="yes">Да</label>
-			<input type="radio" name="addict" value="no" id="notaddicted"><label for="no">Нет</label><br><br>
-
-			<label for="car">Наличие собственного авто:</label>
-			<input type="radio" name="car" value="yes" id="hascar"><label for="yes">Да</label>
-			<input type="radio" name="car" value="no" id="nocar"><label for="no">Нет</label><br><br>
-
-		</div>
-		<button type="submit" id="submit">Сохранить</button>
-		<!-- <button type="submit" onclick="submitForm()" id="submit">Submit</button> -->
-	</form>
-	<!-- <button onclick="clearSelect()">Clear select</button> -->
-</body>
+    <table border="2" bgcolor="#e6f7f6" id="myTable">
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Пол</th>
+          <th>Возраст</th>
+          <!-- <th>Профессия</th> -->
+          <th>Наличие травм</th>
+          <th>Наличие собственного инструмента</th>
+          <th>Наличие зависимостей</th>
+          <th>Наличие собственного авто</th>
+          <th>Удаление данных</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 1, Column 1</td>
+          <td>Row 1, Column 2</td>
+          <td>Row 1, Column 3</td>
+          <td>Row 1, Column 4</td>
+          <td>Row 1, Column 5</td>
+          <td>Row 1, Column 6</td>
+          <td>Row 1, Column 7</td>
+          <td>Row 1, Column 8</td>
+          <!-- <td>Row 1, Column 9</td> -->
+          <td align="center">
+            <button style="background-color: #e0147d" onclick="deleteRow(this)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
-
