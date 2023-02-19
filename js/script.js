@@ -12,6 +12,16 @@ class Person {
     this.age = age;
   };
 
+  // previously separate function, the task says it needs to be inside of the class
+  deleteRow (btn) {
+    let row = btn.parentNode.parentNode;
+    let index = row.rowIndex;
+    data.splice(index - 1, 1);
+    row.parentNode.removeChild(row);
+    render();
+  };
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
   get newName () { return this.name };
   get newSurname () { return this.surname };
   get newGender () { return this.gender };
@@ -22,6 +32,9 @@ class Person {
   set newGender (value) { this.gender = value };
   set newAge (value) { this.age = value };
 };
+
+// function depends on instance variables, so that's why we are creating an instance;
+let testPerson = new Person();
 
 class Smith extends Person {
   constructor (name, surname, gender, age, job = 'слесарь', health, instrument) {
@@ -58,6 +71,7 @@ class Driver extends Person {
 };
 
 // /////////////////////////////////////////////////////////////        constants               //////////////////////////////////////////////////////////
+
 const form = document.getElementById('myForm');
 const submitButton = document.getElementById('submit');
 
@@ -141,7 +155,7 @@ const render = function () {
         continue;
       } else if (i === 9) {
         const cell = newRow.insertCell();
-        cell.innerHTML = '<td align="center"> <button style="background-color: #e0147d" onclick="deleteRow(this)">Delete</button></td>';
+        cell.innerHTML = '<td align="center"> <button style="background-color: #e0147d" onclick="testPerson.deleteRow(this)">Delete</button></td>';
       } else {
         const cell = newRow.insertCell();
         cell.innerHTML = item[keys[j]];
@@ -200,13 +214,3 @@ const submitForm = function (event) {
 }
 
 form.addEventListener('submit', submitForm);
-
-// /////////////////////////////////////////////////////////////        delete function              /////////////////////////////////////////////////////
-
-function deleteRow (btn) {
-  let row = btn.parentNode.parentNode;
-  let index = row.rowIndex;
-  data.splice(index - 1, 1);
-  row.parentNode.removeChild(row);
-  render();
-};
