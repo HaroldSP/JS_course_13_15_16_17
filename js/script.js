@@ -57,7 +57,7 @@ class Driver extends Person {
   set newCar (value) { this.car = value };
 };
 
-// //////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////        constants               //////////////////////////////////////////////////////////
 const form = document.getElementById('myForm');
 const submitButton = document.getElementById('submit');
 
@@ -80,8 +80,12 @@ const nocar = document.getElementById('nocar');
 let data = [];
 if (localStorage.data !== undefined) data = JSON.parse(localStorage.getItem('data', data));
 
+// /////////////////////////////////////////////////////////////        show div function              /////////////////////////////////////////////////////
+
 const showDiv = function () {
   const select = document.getElementById('my-select');
+  smithDiv.style.display = 'none';
+  driverDiv.style.display = 'none';
   selectedOption = select.options[select.selectedIndex].value;
 
   if (selectedOption === 'smith') {
@@ -109,23 +113,24 @@ const showDiv = function () {
 
 select.addEventListener('change', showDiv);
 
-// /////////////////////////////////////////////////////////////        render function              ////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////        render function              //////////////////////////////////////////////////
 
 const render = function () {
   let table = document.getElementById('myTable');
+  localStorage.clear();
 
   for (let i = table.rows.length - 1; i > 0; i--) {
     table.deleteRow(i);
   }
 
-  data.forEach(function (item, index) {
+  data.forEach(function (item) {
     let newRow = table.insertRow();
 
-    const cols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const cols = 9;
     const keys = Object.keys(item);
     let j = 0;
 
-    for (let i = 0; i <= 9; i++) {
+    for (let i = 0; i <= cols; i++) {
       if ((item[keys[4]] === 'Слеcарь') && ((i === 7) || (i === 8))) {
         newRow.insertCell();
         j += 0;
@@ -134,21 +139,23 @@ const render = function () {
         newRow.insertCell();
         j += 0;
         continue;
+      } else if (i === 9) {
+        const cell = newRow.insertCell();
+        cell.innerHTML = '<td align="center"> <button style="background-color: #e0147d" onclick="deleteRow(this)">Delete</button></td>';
       } else {
         const cell = newRow.insertCell();
         cell.innerHTML = item[keys[j]];
         j += 1;
       }
     }
-    // li.querySelector('.todo-remove').addEventListener('click', function () {
-    //   data.splice(index, 1);
-    //   localStorage.clear();
-    //   render();
-    // })
   })
 
   localStorage.setItem('data', JSON.stringify(data));
 };
+
+render();
+
+// /////////////////////////////////////////////////////////////        submit function              /////////////////////////////////////////////////////
 
 const submitForm = function (event) {
   event.preventDefault();
@@ -164,7 +171,7 @@ const submitForm = function (event) {
     let instrumentField = document.querySelector('input[name="instrument"]:checked').nextSibling.textContent.trim();
 
     const newSmith = new Smith(nameField, surnameField, selectedGender, ageField, jobField, healthField, instrumentField);
-    // console.log(newSmith);
+
     data.push(newSmith);
     //
   } else if (selectedOption === 'driver') {
@@ -174,7 +181,6 @@ const submitForm = function (event) {
     const newDriver = new Driver(nameField, surnameField, selectedGender, ageField, jobField, addictField, carField);
     data.push(newDriver);
   };
-  // console.log(data);
 
   form.reset();
   document.getElementById('my-select').options[select.selectedIndex].value = '';
@@ -195,7 +201,12 @@ const submitForm = function (event) {
 
 form.addEventListener('submit', submitForm);
 
+// /////////////////////////////////////////////////////////////        delete function              /////////////////////////////////////////////////////
+
 function deleteRow (btn) {
   let row = btn.parentNode.parentNode;
+  let index = row.rowIndex;
+  data.splice(index - 1, 1);
   row.parentNode.removeChild(row);
+  render();
 };
