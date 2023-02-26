@@ -36,15 +36,59 @@ const DomElement = function (selector, height, width, bg, fontSize) {
       element = document.createElement('p');
       element.id = selector;
       element.innerHTML = `<p>CreateElement with id + ${randomNumber}</p>`;
+      // extra task
+    } else if (selector === 'square') {
+      element = document.createElement('div');
+      element.id = selector;
+      element.style.cssText = `height: ${100}px; width: ${100}px; background-color: ${'red'}; font-size: ${fontSize}px; position: absolute`;
     } else alert('что-то пошло не так');
 
-    element.style.cssText = `height: ${height}px; width: ${width}px; background-color: ${bg}; font-size: ${fontSize}px;`;
+    if (selector !== 'square') element.style.cssText = `height: ${height}px; width: ${width}px; background-color: ${bg}; font-size: ${fontSize}px;`;
     document.body.appendChild(element);
+  };
+
+  this.moveElement = function () {
+    const redSquare = document.querySelector('#square');
+    console.log(redSquare);
+
+    let x = 0;
+    let y = 0;
+    redSquare.style.left = x + 'px';
+    redSquare.style.top = y + 'px';
+
+    function move (event) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          x -= 10;
+          break;
+        case 'ArrowRight':
+          x += 10;
+          break;
+        case 'ArrowUp':
+          y -= 10;
+          break;
+        case 'ArrowDown':
+          y += 10;
+          break;
+        case 'Escape':
+        case ' ':
+          document.removeEventListener('keydown', move);
+          break;
+        default:
+      }
+
+      redSquare.style.left = x + 'px';
+      redSquare.style.top = y + 'px';
+    }
+
+    document.addEventListener('keydown', move);
   }
 }
 
-// const newBlock = new DomElement('.block', 25, 500, 'red', 20);
+const newBlock = new DomElement('square');
 // const newBlockId = new DomElement('#best', 20, 250, 'green', 14);
 
-// newBlock.createElement();
+newBlock.createElement();
+newBlock.moveElement();
+
 // newBlockId.createElement();
